@@ -23,8 +23,10 @@ export class UserRepository extends Repository<User> {
     user.firstname = firstname;
     user.lastname = lastname;
     user.email = email;
-    user.salt = await bcrypt.genSalt();
-    user.password = await this.hashPassword(password, user.salt);
+    if (password) {
+      user.salt = await bcrypt.genSalt();
+      user.password = await this.hashPassword(password, user.salt);
+    }
     if (await this.findOne({ where: { email } })) {
       throw new ConflictException('Email already exist!');
     }
@@ -42,7 +44,7 @@ export class UserRepository extends Repository<User> {
     return user;
   }
   async OauthsignUp(oauthSignUpDto: OauthSignUpDto): Promise<User> {
-    const { firstname, lastname, email} = oauthSignUpDto;
+    const { firstname, lastname, email } = oauthSignUpDto;
     const user = new User();
     user.firstname = firstname;
     user.lastname = lastname;
@@ -66,7 +68,7 @@ export class UserRepository extends Repository<User> {
     const { email, password } = authCredentialsDto;
     let where: any = { email: ILike(email) };
     const user = await this.findOne({ where });
-    if (user && (await user.validatePassword(password))) {
+    if (user && ((await user.validatePassword(password)) || !password)) {
       return user;
     } else {
       return null;

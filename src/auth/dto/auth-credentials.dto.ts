@@ -1,9 +1,9 @@
-import { IsString, IsEmail } from 'class-validator';
+import { IsString, IsEmail, IsOptional } from 'class-validator';
 
 export class AuthCredentialsDto {
   @IsEmail({}, { message: 'Please enter a valid email address.' })
   email: string;
 
-  @IsString()
-  password: string;
+  @IsOptional()
+  password?: string;
 }

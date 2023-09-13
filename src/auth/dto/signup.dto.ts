@@ -6,6 +6,8 @@ import {
   Matches,
   IsEmail,
   IsPhoneNumber,
+  IsOptional,
+  ValidateIf,
 } from 'class-validator';
 
 export class SignUpDto {
@@ -28,11 +30,13 @@ export class SignUpDto {
   @IsPhoneNumber('PK', { message: 'Please enter a valid phone number.' })
   phoneNumber: string;
 
+  @IsOptional()
+  @ValidateIf((o) => o.password)
   @IsString()
   @MinLength(8)
   @MaxLength(20)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'Password is too weak.',
   })
-  password: string;
+  password?: string;
 }
