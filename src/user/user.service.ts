@@ -3,6 +3,7 @@ import { ILike } from 'typeorm';
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
 import { OauthSignUpDto } from '../auth/dto/oauth.dto';
 import { SignUpDto } from '../auth/dto/signup.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.entity';
 import { UserRepository } from './user.repository';
 
@@ -38,5 +39,32 @@ export class UserService {
     authCredentialsDto: AuthCredentialsDto,
   ): Promise<User> {
     return this.userRepository.validateUserPassword(authCredentialsDto);
+  }
+  async updateUser(
+    id: number,
+    updateUserDto: UpdateUserDto,
+    proofOfHomeAddress: Express.Multer.File,
+    uploadedId: Express.Multer.File,
+    proofOfBank: Express.Multer.File,
+  ) {
+    const user = await this.getUserById(id);
+
+    // Update user properties from DTO
+    Object.assign(user, updateUserDto);
+
+    // Handle file uploads and update corresponding fields
+    if (proofOfHomeAddress) {
+      user.proofOfHomeAddress = proofOfHomeAddress.buffer.toString('base64'); // Store file data as needed
+    }
+
+    if (uploadedId) {
+      user.uploadedId = uploadedId.buffer.toString('base64'); // Store file data as needed
+    }
+
+    if (proofOfBank) {
+      user.proofOfBank = proofOfBank.buffer.toString('base64'); // Store file data as needed
+    }
+
+    return this.userRepository.save(user);
   }
 }

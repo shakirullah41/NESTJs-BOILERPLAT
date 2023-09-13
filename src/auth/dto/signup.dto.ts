@@ -5,6 +5,7 @@ import {
   MaxLength,
   Matches,
   IsEmail,
+  IsPhoneNumber,
 } from 'class-validator';
 
 export class SignUpDto {
@@ -17,6 +18,15 @@ export class SignUpDto {
   @IsEmail({}, { message: 'Please enter a valid email address.' })
   @Transform(({ value }) => value.toLowerCase())
   email: string;
+
+  @IsString()
+  businessName: string;
+
+  @IsString()
+  businessAddress: string;
+
+  @IsPhoneNumber('PK', { message: 'Please enter a valid phone number.' })
+  phoneNumber: string;
 
   @IsString()
   @MinLength(8)

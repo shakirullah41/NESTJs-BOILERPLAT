@@ -23,6 +23,54 @@ export class User extends BaseEntity {
   @Column({ unique: true })
   email: string;
 
+  @Column()
+  businessName: string;
+
+  @Column()
+  businessAddress: string;
+
+  @Column()
+  businessRegistrationNumber: string;
+
+  @Column({ nullable: true })
+  tradingAddress: string;
+
+  @Column({ nullable: true })
+  proofOfBusiness: string;
+
+  @Column()
+  mobileNumber: string;
+
+  @Column({ nullable: true })
+  phoneNumber: string;
+
+  @Column()
+  dateOfBirth: string;
+
+  @Column({ nullable: true })
+  homeAddress: string;
+
+  @Column({ nullable: true })
+  idNumber: string;
+
+  @Column({ nullable: true })
+  uploadedId: string;
+
+  @Column({ nullable: true })
+  proofOfHomeAddress: string;
+
+  @Column({ nullable: true })
+  bankName: string;
+
+  @Column({ nullable: true })
+  accountNumber: string;
+
+  @Column({ nullable: true })
+  shortcode: string;
+
+  @Column({ nullable: true })
+  proofOfBank: string;
+
   @Exclude()
   @Column({ nullable: true })
   password: string;
