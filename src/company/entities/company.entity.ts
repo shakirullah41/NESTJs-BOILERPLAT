@@ -39,4 +39,7 @@ export class Company {
 
   @Column({ nullable: true })
   userId: number;
+
+  @Column({ type: 'bytea', nullable: true }) // 'bytea' type is for storing binary data (e.g., icon)
+  icon: Buffer;
 }

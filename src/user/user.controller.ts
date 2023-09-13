@@ -25,18 +25,21 @@ export class UserController {
   @UseInterceptors(FileInterceptor('proofOfHomeAddress'))
   @UseInterceptors(FileInterceptor('uploadedId'))
   @UseInterceptors(FileInterceptor('proofOfBank'))
+  @UseInterceptors(FileInterceptor('proofOfBusiness'))
   async update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
     @UploadedFile() proofOfHomeAddress: Express.Multer.File,
     @UploadedFile() uploadedId: Express.Multer.File,
     @UploadedFile() proofOfBank: Express.Multer.File,
+    @UploadedFile() proofOfBusiness: Express.Multer.File,
   ) {
     return this.userService.updateUser(
       +id,
       updateUserDto,
       proofOfHomeAddress,
       uploadedId,
+      proofOfBusiness,
       proofOfBank,
     );
   }

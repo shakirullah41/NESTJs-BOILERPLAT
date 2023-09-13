@@ -45,6 +45,7 @@ export class UserService {
     updateUserDto: UpdateUserDto,
     proofOfHomeAddress: Express.Multer.File,
     uploadedId: Express.Multer.File,
+    proofOfBusiness: Express.Multer.File,
     proofOfBank: Express.Multer.File,
   ) {
     const user = await this.getUserById(id);
@@ -54,17 +55,19 @@ export class UserService {
 
     // Handle file uploads and update corresponding fields
     if (proofOfHomeAddress) {
-      user.proofOfHomeAddress = proofOfHomeAddress.buffer.toString('base64'); // Store file data as needed
+      user.proofOfHomeAddress = proofOfHomeAddress.buffer; // Store file data as needed
     }
 
     if (uploadedId) {
-      user.uploadedId = uploadedId.buffer.toString('base64'); // Store file data as needed
+      user.uploadedId = uploadedId.buffer; // Store file data as needed
     }
 
     if (proofOfBank) {
-      user.proofOfBank = proofOfBank.buffer.toString('base64'); // Store file data as needed
+      user.proofOfBank = proofOfBank.buffer; // Store file data as needed
     }
-
+    if (proofOfBusiness) {
+      user.proofOfBusiness = proofOfBusiness.buffer; // Store file data as needed
+    }
     return this.userRepository.save(user);
   }
 }

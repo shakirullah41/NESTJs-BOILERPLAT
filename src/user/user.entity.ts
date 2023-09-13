@@ -35,8 +35,8 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   tradingAddress: string;
 
-  @Column({ nullable: true })
-  proofOfBusiness: string;
+  @Column({ type: 'bytea', nullable: true})
+  proofOfBusiness: Buffer;
 
   @Column()
   mobileNumber: string;
@@ -53,11 +53,11 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   idNumber: string;
 
-  @Column({ nullable: true })
-  uploadedId: string;
+  @Column({ type: 'bytea', nullable: true})
+  uploadedId: Buffer;
 
-  @Column({ nullable: true })
-  proofOfHomeAddress: string;
+  @Column({ type: 'bytea', nullable: true})
+  proofOfHomeAddress: Buffer;
 
   @Column({ nullable: true })
   bankName: string;
@@ -68,9 +68,9 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   shortcode: string;
 
-  @Column({ nullable: true })
-  proofOfBank: string;
-
+  @Column({ type: 'bytea', nullable: true})
+  proofOfBank: Buffer;
+  
   @Exclude()
   @Column({ nullable: true })
   password: string;
