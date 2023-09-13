@@ -34,9 +34,6 @@ export class UserService {
     }
     return found;
   }
-  updateUserToken(id, accessToken, refreshToken) {
-    return this.userRepository.updateUserToken(id, accessToken, refreshToken);
-  }
   async validateUserPassword(
     authCredentialsDto: AuthCredentialsDto,
   ): Promise<User> {

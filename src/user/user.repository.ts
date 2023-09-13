@@ -42,13 +42,11 @@ export class UserRepository extends Repository<User> {
     return user;
   }
   async OauthsignUp(oauthSignUpDto: OauthSignUpDto): Promise<User> {
-    const { firstname, lastname, email, provider, providerId } = oauthSignUpDto;
+    const { firstname, lastname, email} = oauthSignUpDto;
     const user = new User();
     user.firstname = firstname;
     user.lastname = lastname;
     user.email = email;
-    user.provider = provider;
-    user.providerId = providerId;
     try {
       await user.save();
     } catch (e) {
@@ -73,21 +71,6 @@ export class UserRepository extends Repository<User> {
     } else {
       return null;
     }
-  }
-  async updateUserToken(id, accessToken, refreshToken) {
-    const found = await this.findOne({
-      where: { id },
-    });
-    if (accessToken) {
-      found.accessToken = accessToken;
-      const currentDate = moment();
-      const futureDate = moment(currentDate).add(55, 'minutes');
-      found.accessTokenExpiresIn = futureDate.toDate();
-    }
-    if (refreshToken) {
-      found.refreshToken = refreshToken;
-    }
-    this.save(found);
   }
   private async hashPassword(password: string, salt: string): Promise<string> {
     return bcrypt.hash(password, salt);

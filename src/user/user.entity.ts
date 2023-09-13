@@ -31,24 +31,6 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   salt: string;
 
-  @Column({ nullable: true })
-  provider: string;
-
-  @Column({ nullable: true })
-  providerId: string;
-
-  @Column({ nullable: true })
-  googleAccountId: string;
-
-  @Column({ nullable: true })
-  accessToken: string;
-
-  @CreateDateColumn({ nullable: true, type: 'timestamp with time zone' })
-  accessTokenExpiresIn: Date;
-
-  @Column({ nullable: true })
-  refreshToken: string;
-
   @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt: Date;
 

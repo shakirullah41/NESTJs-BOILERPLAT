@@ -22,16 +22,4 @@ export class OauthSignUpDto {
 
   @IsEmail({}, { message: 'Please enter a valid email address.' })
   email: string;
-
-  @IsOptional()
-  @IsNotEmpty()
-  provider?: string;
-
-  @IsOptional()
-  @IsNotEmpty()
-  providerId?: string;
-
-  @IsOptional()
-  @IsNotEmpty()
-  googleAccountId?: string;
 }
