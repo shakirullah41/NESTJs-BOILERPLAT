@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   Put,
   UploadedFile,
@@ -8,11 +9,18 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './user.entity';
 import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
+
+  @Get('/:id')
+  getUserById(@Param('id') id: number): Promise<User> {
+    return this.userService.getUserById(id);
+  }
+
   @Put(':id')
   @UseInterceptors(FileInterceptor('proofOfHomeAddress'))
   @UseInterceptors(FileInterceptor('uploadedId'))
