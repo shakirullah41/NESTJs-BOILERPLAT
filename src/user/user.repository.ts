@@ -18,11 +18,22 @@ export class UserRepository extends Repository<User> {
 
   async signUp(signUpDto: SignUpDto): Promise<User> {
     // type promise bcz it is an asyn method
-    const { firstname, lastname, email, password } = signUpDto;
+    const {
+      firstname,
+      lastname,
+      email,
+      password,
+      businessName,
+      businessAddress,
+      phoneNumber,
+    } = signUpDto;
     const user = new User();
     user.firstname = firstname;
     user.lastname = lastname;
     user.email = email;
+    user.businessName = businessName;
+    user.businessAddress = businessAddress;
+    user.phoneNumber = phoneNumber;
     if (password) {
       user.salt = await bcrypt.genSalt();
       user.password = await this.hashPassword(password, user.salt);

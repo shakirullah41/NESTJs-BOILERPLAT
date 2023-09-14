@@ -29,7 +29,7 @@ export class User extends BaseEntity {
   @Column()
   businessAddress: string;
 
-  @Column()
+  @Column({ nullable: true })
   businessRegistrationNumber: string;
 
   @Column({ nullable: true })
@@ -38,13 +38,13 @@ export class User extends BaseEntity {
   @Column({ type: 'bytea', nullable: true})
   proofOfBusiness: Buffer;
 
-  @Column()
+  @Column({ nullable: true })
   mobileNumber: string;
 
   @Column({ nullable: true })
   phoneNumber: string;
 
-  @Column()
+  @Column({ nullable: true })
   dateOfBirth: string;
 
   @Column({ nullable: true })
