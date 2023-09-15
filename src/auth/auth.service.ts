@@ -25,8 +25,11 @@ export class AuthService {
     const accessToken = await this.generateToken({ id, email });
     return { accessToken };
   }
-  async signUp(signUpDto: SignUpDto): Promise<User> {
-    return this.userService.signUp(signUpDto);
+  async signUp(signUpDto: SignUpDto): Promise<{ accessToken: string }> {
+    const user = await this.userService.signUp(signUpDto);
+    const { id, email } = user;
+    const accessToken = await this.generateToken({ id, email });
+    return { accessToken };
   }
   async generateToken(data) {
     const payload = { ...data };

@@ -35,7 +35,7 @@ export class AuthController {
 
   @Public()
   @Post('signup')
-  signUp(@Body(ValidationPipe) signUpDto: SignUpDto): Promise<User> {
+  signUp(@Body(ValidationPipe) signUpDto: SignUpDto) {
     return this.authService.signUp(signUpDto);
   }
 }
