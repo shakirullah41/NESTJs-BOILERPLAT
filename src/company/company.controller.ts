@@ -12,6 +12,7 @@ import {
 import { GetUser } from '../auth/decorator/get-user.decorator';
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
+import { GetCompanyDto } from './dto/get-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 
 @Controller('company')
@@ -25,10 +26,13 @@ export class CompanyController {
   ) {
     return this.companyService.create(user, createCompanyDto);
   }
-
+  @Get('distinct-monthly-card-turnovers')
+  async findDistinctMonthlyCardTurnovers(): Promise<number[]> {
+    return this.companyService.findDistinctMonthlyCardTurnovers();
+  }
   @Get()
-  findAll(@GetUser() user) {
-    return this.companyService.findAll();
+  findAll(@GetUser() user,@Body() getCompanyDto:GetCompanyDto) {
+    return this.companyService.findAll(getCompanyDto);
   }
 
   @Get(':id')

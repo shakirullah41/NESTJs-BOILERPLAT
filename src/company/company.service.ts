@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CompanyRepository } from './company.repository';
 import { CreateCompanyDto } from './dto/create-company.dto';
+import { GetCompanyDto } from './dto/get-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 
 @Injectable()
@@ -14,10 +15,22 @@ export class CompanyService {
     return this.companyRepository.save(company);
   }
 
-  findAll() {
-    return this.companyRepository.find();
+  findAll(getCompanyDto: GetCompanyDto) {
+    const { monthlyCardTurnover } = getCompanyDto;
+    let where;
+    if (monthlyCardTurnover) {
+      where = { monthlyCardTurnover };
+    }
+    return this.companyRepository.find({ where });
   }
+  async findDistinctMonthlyCardTurnovers(): Promise<number[]> {
+    const distinctValues = await this.companyRepository
+      .createQueryBuilder()
+      .select('DISTINCT "monthlyCardTurnover"', 'monthlyCardTurnover')
+      .getRawMany();
 
+    return distinctValues.map((entry) => entry.monthlyCardTurnover);
+  }
   async findOne(id: number) {
     const company = await this.companyRepository.findOne({ where: { id } });
     if (!company) {
