@@ -9,7 +9,7 @@ export class Company {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   postCode: string;
 
   @Column({ nullable: true, type: 'decimal', precision: 10, scale: 2 })
