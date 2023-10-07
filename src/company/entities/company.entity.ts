@@ -33,6 +33,9 @@ export class Company {
   @Column({ nullable: true, type: 'decimal', precision: 10, scale: 2 })
   totalSavings: number;
 
+  @Column({ nullable: true, type: 'decimal', precision: 10, scale: 2 })
+  discount: number;
+
   @ManyToOne((type) => User)
   user: User;
 
