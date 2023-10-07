@@ -1,4 +1,3 @@
-// company.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { User } from '../../user/user.entity';
 
@@ -13,25 +12,25 @@ export class Company {
   @Column()
   postCode: string;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   monthlyRental: number;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   debitCardRates: number;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   creditCardRates: number;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   commercialCardRates: number;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   monthlyCardTurnover: number;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   monthlyTotalFees: number;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   totalSavings: number;
 
   @ManyToOne((type) => User)
