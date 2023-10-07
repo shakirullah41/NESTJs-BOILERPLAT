@@ -8,6 +8,7 @@ import {
   Delete,
   ValidationPipe,
   Put,
+  Query,
 } from '@nestjs/common';
 import { GetUser } from '../auth/decorator/get-user.decorator';
 import { CompanyService } from './company.service';
@@ -31,7 +32,7 @@ export class CompanyController {
     return this.companyService.findDistinctMonthlyCardTurnovers();
   }
   @Get()
-  findAll(@GetUser() user,@Body() getCompanyDto:GetCompanyDto) {
+  findAll(@GetUser() user, @Query() getCompanyDto: GetCompanyDto) {
     return this.companyService.findAll(getCompanyDto);
   }
 
