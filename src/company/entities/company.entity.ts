@@ -12,25 +12,25 @@ export class Company {
   @Column()
   postCode: string;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ nullable: true, type: 'decimal', precision: 10, scale: 2 })
   monthlyRental: number;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ nullable: true, type: 'decimal', precision: 10, scale: 2 })
   debitCardRates: number;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ nullable: true, type: 'decimal', precision: 10, scale: 2 })
   creditCardRates: number;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ nullable: true, type: 'decimal', precision: 10, scale: 2 })
   commercialCardRates: number;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ nullable: true, type: 'decimal', precision: 10, scale: 2 })
   monthlyCardTurnover: number;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ nullable: true, type: 'decimal', precision: 10, scale: 2 })
   monthlyTotalFees: number;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ nullable: true, type: 'decimal', precision: 10, scale: 2 })
   totalSavings: number;
 
   @ManyToOne((type) => User)
