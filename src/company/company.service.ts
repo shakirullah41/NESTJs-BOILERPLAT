@@ -7,11 +7,14 @@ import { UpdateCompanyDto } from './dto/update-company.dto';
 @Injectable()
 export class CompanyService {
   constructor(private readonly companyRepository: CompanyRepository) {}
-  async create(user, createCompanyDto: CreateCompanyDto) {
+  async create(user, createCompanyDto: CreateCompanyDto, logo) {
     const company = this.companyRepository.create({
       ...createCompanyDto,
       userId: user?.id || null,
     });
+    if (logo) {
+      company.logo = logo.buffer; // Store file data as needed
+    }
     return this.companyRepository.save(company);
   }
 
@@ -39,9 +42,11 @@ export class CompanyService {
     return company;
   }
 
-  async update(user, id: number, updateCompanyDto: UpdateCompanyDto) {
+  async update(user, id: number, updateCompanyDto: UpdateCompanyDto, logo) {
     const company = await this.findOne(id);
-
+    if (logo) {
+      company.logo = logo.buffer; // Store file data as needed
+    }
     this.companyRepository.merge(company, {
       ...updateCompanyDto,
       userId: user?.id || null,

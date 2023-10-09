@@ -36,6 +36,9 @@ export class Company {
   @Column({ nullable: true, type: 'decimal', precision: 10, scale: 2 })
   discount: number;
 
+  @Column({ type: 'bytea', nullable: true })
+  logo: Buffer;
+
   @ManyToOne((type) => User)
   user: User;
 

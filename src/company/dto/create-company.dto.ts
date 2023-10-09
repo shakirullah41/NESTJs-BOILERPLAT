@@ -2,29 +2,22 @@ import { IsString, IsNumber } from 'class-validator';
 
 export class CreateCompanyDto {
   @IsString()
-   name: string;
+  name: string;
 
   @IsString()
-   postCode: string;
+  postCode: string;
 
-  @IsNumber()
-   monthlyRental: number;
+  monthlyRental: number;
 
-  @IsNumber()
-   debitCardRates: number;
+  debitCardRates: number;
 
-  @IsNumber()
-   creditCardRates: number;
+  creditCardRates: number;
 
-  @IsNumber()
-   commercialCardRates: number;
+  commercialCardRates: number;
 
-  @IsNumber()
-   monthlyCardTurnover: number;
+  monthlyCardTurnover: number;
 
-  @IsNumber()
-   monthlyTotalFees: number;
+  monthlyTotalFees: number;
 
-  @IsNumber()
-   totalSavings: number;
+  totalSavings: number;
 }
