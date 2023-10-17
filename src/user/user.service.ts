@@ -43,9 +43,40 @@ export class UserService {
   async updateUser(id: number, updateUserDto: UpdateUserDto, files) {
     try {
       const user = await this.getUserById(id);
-
-      // Update user properties from DTO
-      Object.assign(user, updateUserDto);
+      const {
+        firstname,
+        lastname,
+        email,
+        businessName,
+        businessAddress,
+        businessRegistrationNumber,
+        tradingAddress,
+        mobileNumber,
+        phoneNumber,
+        password,
+        dateOfBirth,
+        homeAddress,
+        idNumber,
+        proofOfHomeAddress,
+        uploadedId,
+        proofOfBank,
+      } = updateUserDto;
+      user.firstname = firstname;
+      user.lastname = lastname;
+      user.email = email;
+      user.businessName = businessName;
+      user.businessAddress = businessAddress;
+      user.businessRegistrationNumber = businessRegistrationNumber;
+      user.tradingAddress = tradingAddress;
+      user.mobileNumber = mobileNumber;
+      user.phoneNumber = phoneNumber;
+      user.password = password;
+      user.dateOfBirth = dateOfBirth;
+      user.homeAddress = homeAddress;
+      user.idNumber = idNumber;
+      user.proofOfHomeAddress = proofOfHomeAddress;
+      user.uploadedId = uploadedId;
+      user.proofOfBank = proofOfBank;
 
       if (files) {
         const { proofOfHomeAddress, uploadedId, proofOfBusiness, proofOfBank } =
