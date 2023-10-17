@@ -5,9 +5,13 @@ import {
   Param,
   Put,
   UploadedFile,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  FileFieldsInterceptor,
+  FileInterceptor,
+} from '@nestjs/platform-express';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
@@ -22,25 +26,25 @@ export class UserController {
   }
 
   @Put('/:id')
-  @UseInterceptors(FileInterceptor('proofOfHomeAddress'))
-  @UseInterceptors(FileInterceptor('uploadedId'))
-  @UseInterceptors(FileInterceptor('proofOfBank'))
-  @UseInterceptors(FileInterceptor('proofOfBusiness'))
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'proofOfHomeAddress' },
+      { name: 'uploadedId' },
+      { name: 'proofOfBank' },
+      { name: 'proofOfBusiness' },
+    ]),
+  )
   async update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
-    @UploadedFile() proofOfHomeAddress: Express.Multer.File,
-    @UploadedFile() uploadedId: Express.Multer.File,
-    @UploadedFile() proofOfBank: Express.Multer.File,
-    @UploadedFile() proofOfBusiness: Express.Multer.File,
+    @UploadedFiles()
+    files: {
+      proofOfHomeAddress?: Express.Multer.File[];
+      uploadedId?: Express.Multer.File[];
+      proofOfBank?: Express.Multer.File[];
+      proofOfBusiness?: Express.Multer.File[];
+    },
   ) {
-    return this.userService.updateUser(
-      +id,
-      updateUserDto,
-      proofOfHomeAddress,
-      uploadedId,
-      proofOfBusiness,
-      proofOfBank,
-    );
+    return this.userService.updateUser(+id, updateUserDto, files);
   }
 }
