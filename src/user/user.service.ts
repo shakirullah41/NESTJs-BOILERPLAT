@@ -48,26 +48,30 @@ export class UserService {
     proofOfBusiness: Express.Multer.File,
     proofOfBank: Express.Multer.File,
   ) {
-    const user = await this.getUserById(id);
+    try {
+      const user = await this.getUserById(id);
 
-    // Update user properties from DTO
-    Object.assign(user, updateUserDto);
+      // Update user properties from DTO
+      Object.assign(user, updateUserDto);
 
-    // Handle file uploads and update corresponding fields
-    if (proofOfHomeAddress) {
-      user.proofOfHomeAddress = proofOfHomeAddress.buffer; // Store file data as needed
-    }
+      // Handle file uploads and update corresponding fields
+      if (proofOfHomeAddress) {
+        user.proofOfHomeAddress = proofOfHomeAddress.buffer; // Store file data as needed
+      }
 
-    if (uploadedId) {
-      user.uploadedId = uploadedId.buffer; // Store file data as needed
-    }
+      if (uploadedId) {
+        user.uploadedId = uploadedId.buffer; // Store file data as needed
+      }
 
-    if (proofOfBank) {
-      user.proofOfBank = proofOfBank.buffer; // Store file data as needed
+      if (proofOfBank) {
+        user.proofOfBank = proofOfBank.buffer; // Store file data as needed
+      }
+      if (proofOfBusiness) {
+        user.proofOfBusiness = proofOfBusiness.buffer; // Store file data as needed
+      }
+      return this.userRepository.save(user);
+    } catch (e) {
+      console.log(e);
     }
-    if (proofOfBusiness) {
-      user.proofOfBusiness = proofOfBusiness.buffer; // Store file data as needed
-    }
-    return this.userRepository.save(user);
   }
 }
