@@ -21,7 +21,7 @@ export class UserController {
     return this.userService.getUserById(id);
   }
 
-  @Put(':id')
+  @Put('/:id')
   @UseInterceptors(FileInterceptor('proofOfHomeAddress'))
   @UseInterceptors(FileInterceptor('uploadedId'))
   @UseInterceptors(FileInterceptor('proofOfBank'))
