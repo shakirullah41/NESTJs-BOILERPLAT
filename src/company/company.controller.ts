@@ -40,6 +40,8 @@ export class CompanyController {
   async findDistinctMonthlyCardTurnovers(): Promise<number[]> {
     return this.companyService.findDistinctMonthlyCardTurnovers();
   }
+
+  @Public()
   @Get()
   findAll(@GetUser() user, @Query() getCompanyDto: GetCompanyDto) {
     return this.companyService.findAll(getCompanyDto);
