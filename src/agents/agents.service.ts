@@ -14,10 +14,12 @@ export class AgentsService {
     if (files) {
       const { image, sideProfilePhoto } = files;
       if (image) {
-        createAgentDto.imageUrl = await this.upload(image);
+        createAgentDto.imageUrl = await this.upload(image[0]);
       }
       if (sideProfilePhoto) {
-        createAgentDto.imageUrl = await this.upload(sideProfilePhoto);
+        createAgentDto.sideProfileImageUrl = await this.upload(
+          sideProfilePhoto[0],
+        );
       }
     }
     return this.agentRepository.addAgent(createAgentDto);
@@ -34,25 +36,28 @@ export class AgentsService {
     return company;
   }
   async upload(file) {
-    const { path, mimetype } = file;
+    console.log(file);
+    const { buffer, mimetype } = file;
     const fileKey = `${Math.random()}-${new Date().getTime()}`;
-    const { location } = await this.awsService.s3Upload(
-      path,
+    const { Location } = await this.awsService.s3Upload(
+      buffer,
       fileKey,
-      'path',
+      'binary',
       mimetype,
     );
-    return location;
+    return Location;
   }
   async update(id: number, updateAgentDto: UpdateAgentDto, files) {
     const agent = await this.findOne(id);
     if (files) {
       const { image, sideProfilePhoto } = files;
       if (image) {
-        updateAgentDto.imageUrl = await this.upload(image);
+        updateAgentDto.imageUrl = await this.upload(image[0]);
       }
       if (sideProfilePhoto) {
-        updateAgentDto.imageUrl = await this.upload(sideProfilePhoto);
+        updateAgentDto.sideProfileImageUrl = await this.upload(
+          sideProfilePhoto[0],
+        );
       }
     }
     this.agentRepository.merge(agent, {

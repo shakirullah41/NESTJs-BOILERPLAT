@@ -48,25 +48,22 @@ export class AwsService {
     });
   }
   async s3Upload(file, filename, type = 'binary', mimeType): Promise<any> {
-    return new Promise(async (resolve) => {
-      const data = {
-        Key: filename,
-        Body: file,
-        ContentType: mimeType,
-        Bucket: this.Bucket,
-      };
-      if (type === 'path') {
-        data.Body = fs.createReadStream(file);
-      }
-      console.log(data);
-      try {
-        const response = await this.s3.upload(data).promise();
-        return response;
-      } catch (e) {
-        console.error(e);
-        throw new InternalServerErrorException('Could not upload image');
-      }
-    });
+    const data = {
+      Key: filename,
+      Body: file,
+      ContentType: mimeType,
+      Bucket: this.Bucket,
+    };
+    if (type === 'path') {
+      data.Body = fs.createReadStream(file);
+    }
+    try {
+      const response = await this.s3.upload(data).promise();
+      return response;
+    } catch (e) {
+      console.error(e);
+      throw new InternalServerErrorException('Could not upload image');
+    }
   }
   async s3Get(filename) {
     return new Promise(async (resolve) => {

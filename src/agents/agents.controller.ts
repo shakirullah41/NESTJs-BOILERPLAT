@@ -11,14 +11,18 @@ import {
   Put,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { ApiTags } from '@nestjs/swagger';
+import { Public } from '../auth/decorator/public.decorator';
 import { AgentsService } from './agents.service';
 import { CreateAgentDto } from './dto/create-agent.dto';
 import { UpdateAgentDto } from './dto/update-agent.dto';
 
+@ApiTags('Agent')
 @Controller('agent')
 export class AgentsController {
   constructor(private readonly agentsService: AgentsService) {}
 
+  @Public()
   @Post()
   @UseInterceptors(
     FileFieldsInterceptor([{ name: 'image' }, { name: 'sideProfilePhoto' }]),
@@ -27,8 +31,8 @@ export class AgentsController {
     @Body() createAgentDto: CreateAgentDto,
     @UploadedFiles()
     files: {
-      image?: Express.Multer.File[];
-      sideProfilePhoto?: Express.Multer.File[];
+      image?: Express.Multer.File;
+      sideProfilePhoto?: Express.Multer.File;
     },
   ) {
     return this.agentsService.create(createAgentDto, files);

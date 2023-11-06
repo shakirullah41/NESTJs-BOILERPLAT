@@ -10,9 +10,9 @@ import { AwsModule } from '../aws/aws.module';
 @Module({
   imports: [
     AwsModule,
-    MulterModule.register({
-      dest: './upload',
-    }),
+    // MulterModule.register({
+    //   dest: './upload',
+    // }),
     TypeOrmModule.forFeature([Agent]),
   ],
   controllers: [AgentsController],
