@@ -47,7 +47,7 @@ export class AwsService {
       });
     });
   }
-  async s3Upload(file, filename, type = 'binary', mimeType) {
+  async s3Upload(file, filename, type = 'binary', mimeType): Promise<any> {
     return new Promise(async (resolve) => {
       const data = {
         Key: filename,

@@ -6,7 +6,11 @@ import {
   Patch,
   Param,
   Delete,
+  UploadedFiles,
+  UseInterceptors,
+  Put,
 } from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { AgentsService } from './agents.service';
 import { CreateAgentDto } from './dto/create-agent.dto';
 import { UpdateAgentDto } from './dto/update-agent.dto';
@@ -16,8 +20,18 @@ export class AgentsController {
   constructor(private readonly agentsService: AgentsService) {}
 
   @Post()
-  create(@Body() createAgentDto: CreateAgentDto) {
-    return this.agentsService.create(createAgentDto);
+  @UseInterceptors(
+    FileFieldsInterceptor([{ name: 'image' }, { name: 'sideProfilePhoto' }]),
+  )
+  create(
+    @Body() createAgentDto: CreateAgentDto,
+    @UploadedFiles()
+    files: {
+      image?: Express.Multer.File[];
+      sideProfilePhoto?: Express.Multer.File[];
+    },
+  ) {
+    return this.agentsService.create(createAgentDto, files);
   }
 
   @Get()
@@ -30,9 +44,20 @@ export class AgentsController {
     return this.agentsService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAgentDto: UpdateAgentDto) {
-    return this.agentsService.update(+id, updateAgentDto);
+  @Put(':id')
+  @UseInterceptors(
+    FileFieldsInterceptor([{ name: 'image' }, { name: 'sideProfilePhoto' }]),
+  )
+  update(
+    @Param('id') id: string,
+    @Body() updateAgentDto: UpdateAgentDto,
+    @UploadedFiles()
+    files: {
+      image?: Express.Multer.File[];
+      sideProfilePhoto?: Express.Multer.File[];
+    },
+  ) {
+    return this.agentsService.update(+id, updateAgentDto, files);
   }
 
   @Delete(':id')

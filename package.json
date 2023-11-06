@@ -24,8 +24,7 @@
     "migration:generate": "npm run typeorm -- -d ./src/config/migration.ts migration:generate ./migration/$npm_config_name",
     "migration:create": "npm run typeorm -- migration:create ./migration/$npm_config_name",
     "migration:revert": "npm run typeorm -- -d ./src/config/migration.ts migration:revert",
-    "seeder:run": "npm run typeorm seeder:run -- -d ./src/config/seeder.ts",
-    "seeder:generate": "npm run typeorm -- -d ./src/config/seeder.ts seeder:generate ./seeder/$npm_config_name",
+    "seeder:run": "npm run typeorm migration:run -- -d ./src/config/seeder.ts",
     "seeder:create": "npm run typeorm -- migration:create ./seeder/$npm_config_name",
     "seeder:revert": "npm run typeorm -- -d ./src/config/seeder.ts migration:revert"
   },
