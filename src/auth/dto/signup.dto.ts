@@ -9,10 +9,10 @@ import {
 
 export class SignUpDto {
   @IsString()
-  firstname: string;
+  name: string;
 
   @IsString()
-  lastname: string;
+  phone: string;
 
   @IsEmail({}, { message: 'Please enter a valid email address.' })
   @Transform(({ value }) => value.toLowerCase())

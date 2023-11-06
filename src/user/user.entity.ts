@@ -15,21 +15,21 @@ export class User extends BaseEntity {
   id: number;
 
   @Column()
-  firstname: string;
-
-  @Column()
-  lastname: string;
+  name: string;
 
   @Column({ unique: true })
   email: string;
 
   @Exclude()
-  @Column({ nullable: true })
+  @Column()
   password: string;
 
   @Exclude()
   @Column({ nullable: true })
   salt: string;
+
+  @Column({ nullable: true })
+  phone: string;
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt: Date;

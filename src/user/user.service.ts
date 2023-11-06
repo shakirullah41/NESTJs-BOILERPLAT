@@ -22,9 +22,9 @@ export class UserService {
   async signUp(signUpDto: SignUpDto): Promise<User> {
     return this.userRepository.signUp(signUpDto);
   }
-  async oauthSignUp(oauthSignUpDto: OauthSignUpDto): Promise<User> {
-    return this.userRepository.OauthsignUp(oauthSignUpDto);
-  }
+  // async oauthSignUp(oauthSignUpDto: OauthSignUpDto): Promise<User> {
+  //   return this.userRepository.OauthsignUp(oauthSignUpDto);
+  // }
   async getUserByEmail(email: string, isNotValidate?): Promise<User> {
     const found = await this.userRepository.findOne({
       where: { email: ILike(email) },

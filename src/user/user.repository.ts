@@ -9,7 +9,7 @@ import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
 import { SignUpDto } from '../auth/dto/signup.dto';
 import { OauthSignUpDto } from '../auth/dto/oauth.dto';
-import * as moment from 'moment';
+
 @Injectable()
 export class UserRepository extends Repository<User> {
   constructor(private dataSource: DataSource) {
@@ -18,11 +18,11 @@ export class UserRepository extends Repository<User> {
 
   async signUp(signUpDto: SignUpDto): Promise<User> {
     // type promise bcz it is an asyn method
-    const { firstname, lastname, email, password } = signUpDto;
+    const { name, phone, email, password } = signUpDto;
     const user = new User();
-    user.firstname = firstname;
-    user.lastname = lastname;
+    user.name = name;
     user.email = email;
+    user.phone = phone;
     user.salt = await bcrypt.genSalt();
     user.password = await this.hashPassword(password, user.salt);
     if (await this.findOne({ where: { email } })) {
@@ -41,25 +41,25 @@ export class UserRepository extends Repository<User> {
     delete user.salt;
     return user;
   }
-  async OauthsignUp(oauthSignUpDto: OauthSignUpDto): Promise<User> {
-    const { firstname, lastname, email} = oauthSignUpDto;
-    const user = new User();
-    user.firstname = firstname;
-    user.lastname = lastname;
-    user.email = email;
-    try {
-      await user.save();
-    } catch (e) {
-      if (['23505', '23503', '23502', '23514'].includes(e.code)) {
-        throw new ConflictException(e.detail);
-      } else {
-        throw new InternalServerErrorException(e);
-      }
-    }
-    delete user.password;
-    delete user.salt;
-    return user;
-  }
+  // async OauthsignUp(oauthSignUpDto: OauthSignUpDto): Promise<User> {
+  //   const { firstname, lastname, email } = oauthSignUpDto;
+  //   const user = new User();
+  //   user.firstname = firstname;
+  //   user.lastname = lastname;
+  //   user.email = email;
+  //   try {
+  //     await user.save();
+  //   } catch (e) {
+  //     if (['23505', '23503', '23502', '23514'].includes(e.code)) {
+  //       throw new ConflictException(e.detail);
+  //     } else {
+  //       throw new InternalServerErrorException(e);
+  //     }
+  //   }
+  //   delete user.password;
+  //   delete user.salt;
+  //   return user;
+  // }
   async validateUserPassword(
     authCredentialsDto: AuthCredentialsDto,
   ): Promise<User> {
