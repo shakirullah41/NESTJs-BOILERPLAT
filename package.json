@@ -1,5 +1,5 @@
 {
-  "name": "survey-app-backend",
+  "name": "backend",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -18,7 +18,16 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "ts-node ./node_modules/typeorm/cli",
+    "migration:run": "npm run typeorm migration:run -- -d ./src/config/migration.ts",
+    "migration:generate": "npm run typeorm -- -d ./src/config/migration.ts migration:generate ./migration/$npm_config_name",
+    "migration:create": "npm run typeorm -- migration:create ./migration/$npm_config_name",
+    "migration:revert": "npm run typeorm -- -d ./src/config/migration.ts migration:revert",
+    "seeder:run": "npm run typeorm seeder:run -- -d ./src/config/seeder.ts",
+    "seeder:generate": "npm run typeorm -- -d ./src/config/seeder.ts seeder:generate ./seeder/$npm_config_name",
+    "seeder:create": "npm run typeorm -- migration:create ./seeder/$npm_config_name",
+    "seeder:revert": "npm run typeorm -- -d ./src/config/seeder.ts migration:revert"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -64,7 +73,7 @@
     "supertest": "^6.1.3",
     "ts-jest": "28.0.5",
     "ts-loader": "^9.2.3",
-    "ts-node": "^10.0.0",
+    "ts-node": "^10.9.1",
     "tsconfig-paths": "4.0.0",
     "typescript": "^4.3.5"
   },

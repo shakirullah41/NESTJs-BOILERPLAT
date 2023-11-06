@@ -26,12 +26,12 @@ import { JwtAuthGuard } from './auth/guard/jwt.guard';
         return {
           ssl: isProduction,
           extra: {
-            ssl: isProduction ? { rejectUnauthorized: false } : null,
+            ssl: { rejectUnauthorized: false },
           },
           type: 'postgres',
           // autoLoadEntities: true,
           entities: [__dirname + '/../**/*.entity.{js,ts}'],
-          synchronize: true,
+          synchronize: false,
           host: configService.get('DB_HOST'),
           port: configService.get('DB_PORT'),
           username: configService.get('DB_USERNAME'),
