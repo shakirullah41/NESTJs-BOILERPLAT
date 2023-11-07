@@ -8,7 +8,6 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guard/jwt.guard';
-import { AgentsModule } from './agents/agents.module';
 
 @Module({
   imports: [
@@ -27,7 +26,7 @@ import { AgentsModule } from './agents/agents.module';
         return {
           ssl: isProduction,
           extra: {
-            ssl: { rejectUnauthorized: false },
+            ssl: isProduction ? { rejectUnauthorized: false } : null,
           },
           type: 'postgres',
           // autoLoadEntities: true,
@@ -45,7 +44,6 @@ import { AgentsModule } from './agents/agents.module';
 
     UserModule,
     AuthModule,
-    AgentsModule,
   ],
   controllers: [AppController],
   providers: [

@@ -8,7 +8,7 @@ const isProduction = process.env.STAGE === 'prod';
 const config = {
   ssl: isProduction,
   extra: {
-    ssl: { rejectUnauthorized: false },
+    ssl: isProduction ? { rejectUnauthorized: false } : null,
   },
   name: 'migration',
   type: 'postgres',
