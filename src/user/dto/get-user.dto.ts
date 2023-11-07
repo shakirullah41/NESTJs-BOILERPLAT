@@ -7,7 +7,7 @@ export class GetUserDto {
   @IsOptional()
   @IsString()
   email?: string;
-  
+
   @IsOptional()
   @IsString()
   phone?: string;

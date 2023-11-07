@@ -9,10 +9,9 @@ import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
 import { SignUpDto } from '../auth/dto/signup.dto';
-import { OauthSignUpDto } from '../auth/dto/oauth.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { GetUserDto } from './dto/get-user.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserRepository extends Repository<User> {

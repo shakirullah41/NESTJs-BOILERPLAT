@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ILike } from 'typeorm';
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
-import { OauthSignUpDto } from '../auth/dto/oauth.dto';
 import { SignUpDto } from '../auth/dto/signup.dto';
 import { GetUserDto } from './dto/get-user.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
