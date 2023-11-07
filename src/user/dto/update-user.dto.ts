@@ -1,25 +1,33 @@
-import { Transform } from 'class-transformer';
 import {
   IsString,
-  MinLength,
-  MaxLength,
-  Matches,
   IsEmail,
+  IsArray,
   IsOptional,
+  IsInt,
+  IsMobilePhone,
+  Matches,
+  MaxLength,
+  MinLength,
+  IsAlpha,
+  ValidateIf,
 } from 'class-validator';
 
-export class SignUpDto {
+export class UpdateUserDto {
   @IsString()
-  name: string;
+  firstname: string;
+
+  @IsString()
+  lastname: string;
+
+  @ValidateIf((o) => !o.mobileNo || o.email)
+  @IsEmail({}, { message: 'Please enter a valid email address.' })
+  email: string;
 
   @IsOptional()
   @IsString()
   phone?: string;
 
-  @IsEmail({}, { message: 'Please enter a valid email address.' })
-  @Transform(({ value }) => value.toLowerCase())
-  email: string;
-
+  @IsOptional()
   @IsString()
   @MinLength(8)
   @MaxLength(20)
