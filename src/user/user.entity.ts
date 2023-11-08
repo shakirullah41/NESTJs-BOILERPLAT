@@ -29,7 +29,13 @@ export class User extends BaseEntity {
   salt: string;
 
   @Column({ nullable: true })
-  phone: string;
+  mobileNo: string;
+
+  @Column({ nullable: true })
+  countryCode: string;
+
+  @Column({ nullable: true })
+  dialCode: string;
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt: Date;

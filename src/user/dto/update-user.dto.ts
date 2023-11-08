@@ -24,8 +24,22 @@ export class UpdateUserDto {
   email: string;
 
   @IsOptional()
+  @IsMobilePhone(null, null, { message: 'Please enter a valid mobile number.' })
+  mobileNo?: string;
+
+  @IsOptional()
   @IsString()
-  phone?: string;
+  @IsAlpha()
+  @ValidateIf((o) => o.mobileNo)
+  countryCode?: string;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^(\+?\d{1,3}|\d{1,4})$/, {
+    message: 'Please enter a valid dial code!',
+  })
+  @ValidateIf((o) => o.mobileNo)
+  dialCode?: string;
 
   @IsOptional()
   @IsString()

@@ -21,11 +21,14 @@ export class UserRepository extends Repository<User> {
 
   async signUp(signUpDto: SignUpDto): Promise<User> {
     // type promise bcz it is an asyn method
-    const { name, phone, email, password } = signUpDto;
+    const { name, email, password, dialCode, countryCode, mobileNo } =
+      signUpDto;
     const user = new User();
     user.name = name;
     user.email = email;
-    user.phone = phone;
+    user.dialCode = dialCode;
+    user.countryCode = countryCode;
+    user.mobileNo = mobileNo;
     user.salt = await bcrypt.genSalt();
     user.password = await this.hashPassword(password, user.salt);
     if (await this.findOne({ where: { email } })) {
@@ -93,12 +96,16 @@ export class UserRepository extends Repository<User> {
       firstname,
       lastname,
       email,
-      phone,
+      dialCode,
+      countryCode,
+      mobileNo,
       password,
     } = updateUserDto;
     user.firstname = firstname;
     user.lastname = lastname;
-    user.phone = phone;
+    user.dialCode = dialCode;
+    user.countryCode = countryCode;
+    user.mobileNo = mobileNo;
     // user.roleId = roleId;
     if (password && loggedInUser.email === 'super@emrbilling.com') {
       user.salt = await bcrypt.genSalt();
